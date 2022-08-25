@@ -47,3 +47,7 @@
 |               [@Jeong-hoyun](https://github.com/Jeong-hoyun)               |                [@roroism](https://github.com/roroism)                |               [@stardust6653](https://github.com/stardust6653)               |                 [@MinJ33](https://github.com/MinJ33)                 | [@1sol2sol](https://github.com/1sol2sol)  
 |                          |
 | <img src="https://avatars.githubusercontent.com/Jeong-hoyun" width="100"> | <img src="https://avatars.githubusercontent.com/roroism" width="100"> | <img src="https://avatars.githubusercontent.com/stardust6653" width="100"> | <img src="https://avatars.githubusercontent.com/MinJ33" width="100"> |<img src="https://avatars.githubusercontent.com/1sol2sol" width="100"> |
+
+## 🤼‍♀️ 조원 한마디
+
+- 정호윤 미니프로젝트 파이팅~!
