@@ -1,7 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-export default function Clip() {
-  return (
-    <div>clip</div>
-  )
+const Clip = () => {
+const [value,setValue]=React.useState();
+
+React.useEffect(() => {
+    
+
+}, []);
+
+    return (
+        <div>
+          clip
+        </div>
+    );
 }
+
+export default Clip;
