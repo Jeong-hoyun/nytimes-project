@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getUrl } from '../api';
+import Header from '../view/header';
+import Footer from './../view/footer';
 
 const Index = () => {
 let page = 1;
@@ -37,9 +39,9 @@ useEffect(() => {
 
     return (
       <>
-        <header>
+        <Header/>
           <input onChange={onDelay} placeholder='검색어를 입력하세용...'></input>
-        </header>
+      
         <section>
           {news.map(item => (
             <div key={item._id}>
@@ -48,6 +50,7 @@ useEffect(() => {
             </div>
           ))}
         </section>
+        <Footer/>
       </>
     );
 }
