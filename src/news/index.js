@@ -1,17 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { getUrl } from '../api';
 
 const Index = () => {
-const [value,setValue]=React.useState();
+let page = 1;
 
-React.useEffect(() => {
-    
+const [value,setValue]= useState("");
+const [news, setNews] = useState([]);
 
-}, []);
+const onChange = (e) => {
+  setValue(e.target.value);
+}
+
+const q = value.trim();
+
+const getNews = async () => {
+  const response =  await fetch(getUrl({q, page}));
+  console.log(getUrl({q, page}));
+  const json = await response.json();
+  setNews(json.response.docs);
+}
+  
+useEffect(() => {
+  if(q !== ""){
+    getNews();
+  }
+}, [getUrl({q, page})])
 
     return (
-        <div>
-          news
-        </div>
+      <>
+        <header>
+          <input onChange={onChange} placeholder='검색어를 입력하세용...'></input>
+        </header>
+        <section>
+          {news.map(item => (
+            <div key={item._id}>
+              <div>{item.headline.main}</div>
+              <div>{item.pub_date.replace('T', ' ').substring(0, 19)}</div>
+            </div>
+          ))}
+        </section>
+      </>
     );
 }
 
