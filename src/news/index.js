@@ -8,10 +8,6 @@ const [value,setValue]= useState("");
 const [news, setNews] = useState([]);
 const [timer, setTimer] = useState(null);
 
-// const onChange = (e) => {
-//   setValue(e.target.value);
-// }
-
 const onDelay = (e) => {
   if (timer) {
     clearTimeout(timer);
