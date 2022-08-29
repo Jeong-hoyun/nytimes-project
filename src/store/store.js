@@ -8,7 +8,7 @@ const SEARCH_HISTORY_KEY = "SEARCH_HISTORY";
 export const setLocalStorageMiddleware = (store) => (next) => (action) => {
   console.log("setLocalStorageMiddleware", action);
 
-  if (action.type === "newsSlice/fetchNewsbyWords/pending") {
+  if (action.type === "newsSlice/fetchNewsbyWords/fulfilled") {
     // 중복허용
     // const historyList = Array.from(store.getState().history.history);
     // historyList.unshift(action.meta.arg.q);
