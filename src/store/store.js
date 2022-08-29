@@ -9,12 +9,16 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
   console.log("setLocalStorageMiddleware", action);
 
   if (action.type === "newsSlice/fetchNewsbyWords/pending") {
-    const historyList = Array.from(store.getState().history.history);
+    // 중복허용
+    // const historyList = Array.from(store.getState().history.history);
+    // historyList.unshift(action.meta.arg.q);
+    // if (historyList.length >= 6) historyList.length = 5;
 
-    historyList.unshift(action.meta.arg.q);
-    if (historyList.length >= 6) historyList.length = 5;
-
-    console.log("setLocalStorageMiddleware: historyList", historyList);
+    // 중복제거
+    const storeHistoryList = [...store.getState().history.history];
+    storeHistoryList.unshift(action.meta.arg.q);
+    const historyList = [...new Set(storeHistoryList)];
+    if (storeHistoryList.length >= 6) storeHistoryList.pop();
 
     try {
       localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(historyList));
@@ -196,8 +200,13 @@ export const Stores = () => {
         style={{ border: "1px solid" }}
       ></input>
       <div>
-        {historyList.map((item, index) => (
+        {/* 중복허용 */}
+        {/* {historyList.map((item, index) => (
           <div key={index}>{item}</div>
+        ))} */}
+        {/* 중복제거 */}
+        {historyList.map((item) => (
+          <div key={item}>{item}</div>
         ))}
       </div>
       {loading ? "🕑loading🕒" : null}
