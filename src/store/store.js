@@ -18,7 +18,7 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
     const storeHistoryList = [...store.getState().history.history];
     storeHistoryList.unshift(action.meta.arg.q);
     const historyList = [...new Set(storeHistoryList)];
-    if (storeHistoryList.length >= 6) storeHistoryList.pop();
+    if (storeHistoryList.length >= 6) storeHistoryList.length = 5;
 
     try {
       localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(historyList));
