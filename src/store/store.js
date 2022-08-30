@@ -4,9 +4,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUrl } from "../api/index.js";
 
 const SEARCH_HISTORY_KEY = "SEARCH_HISTORY";
+const CLIP_KEY = "CLIP_HISTORY";
 
 export const setLocalStorageMiddleware = (store) => (next) => (action) => {
   console.log("setLocalStorageMiddleware", action);
+  if (action.type === "history/addClip") {
+    console.log("addClip",store.getState().history.clip ); 
+    const storeClipList = [...store.getState().history.clip];
+    try {
+      localStorage.setItem(CLIP_KEY, JSON.stringify(storeClipList));    
+    } catch (e) {
+      throw new Error("LocalStorage를 사용할 수 없습니다.", e);
+    }    
+  }
+  if (action.type === "history/deleteClip") {
+    console.log("deleteClip",store.getState().history.clip ); 
+    
+    try {
+      localStorage.removeItem(CLIP_KEY, JSON.stringify(store.getState()));    
+    } catch (e) {
+      throw new Error("LocalStorage를 사용할 수 없습니다.", e);
+    }    
+  }
+
+
 
   if (action.type === "newsSlice/fetchNewsbyWords/pending") {
     // 중복허용
@@ -18,7 +39,7 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
     const storeHistoryList = [...store.getState().history.history];
     storeHistoryList.unshift(action.meta.arg.q);
     const historyList = [...new Set(storeHistoryList)];
-    if (storeHistoryList.length >= 6) storeHistoryList.length = 5;
+    if (historyList.length >= 6) historyList.length = 5;
 
     try {
       localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(historyList));
@@ -35,11 +56,7 @@ export const fetchNewsbyWords = createAsyncThunk(
   "newsSlice/fetchNewsbyWords",
   async (searchInfo, thunkAPI) => {
     try {
-      // const res = await axios.get("https://api.github.com/users");
-      // return res.data;
-
       console.log("createAsyncThunk 진입");
-
       const res = await fetch(getUrl(searchInfo));
       const jsondata = await res.json();
       return jsondata;
@@ -79,11 +96,7 @@ export const newsSlice = createSlice({
 export const clipSlice = createSlice({
   name: "clippednews",
   initialState: {
-    clippednews: [
-      { id: 1, article: "hello" },
-      { id: 2, article: "안녕하세요" },
-      { id: 3, article: "こんにちは" },
-    ],
+    clippednews: [],
   },
   reducers: {
     clip: ({ clippednews }, action) => {
@@ -99,7 +112,7 @@ export const clipSlice = createSlice({
 //   JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
 
 const initialHistoryList = (() => {
-  let initialState = { history: [] };
+  let initialState = { history: [],clip:[],isClip:false };
   // console.log("history initialState");
   try {
     initialState.history =
@@ -118,6 +131,14 @@ export const historySlice = createSlice({
   reducers: {
     addHistory: (state, action) => {
       state.history = action.payload;
+    },
+    addClip: (state, action) => {
+      state.clip = action.payload;
+      state.isClip=true
+    },
+    deleteClip: (state, action) => {
+      state.clip = 'none';
+      state.isClip=false;
     },
   },
 });
@@ -227,4 +248,4 @@ export const Stores = () => {
 export default Stores;
 
 export const { clip, unclip } = clipSlice.actions;
-export const { addHistory } = historySlice.actions;
+export const { addHistory , addClip, deleteClip} = historySlice.actions;
