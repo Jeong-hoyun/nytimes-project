@@ -29,21 +29,25 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
 
 
 
-  if (action.type === "newsSlice/fetchNewsbyWords/pending") {
+  if (action.type === "newsSlice/fetchNewsbyWords/fulfilled") {
     // 중복허용
-    // const historyList = Array.from(store.getState().history.history);
-    // historyList.unshift(action.meta.arg.q);
-    // if (historyList.length >= 6) historyList.length = 5;
+    // const UpdateHistoryList = Array.from(store.getState().history.history);
+    // UpdateHistoryList.unshift(action.meta.arg.q);
+    // if (UpdateHistoryList.length >= 6) UpdateHistoryList.length = 5;
 
     // 중복제거
     const storeHistoryList = [...store.getState().history.history];
     storeHistoryList.unshift(action.meta.arg.q);
-    const historyList = [...new Set(storeHistoryList)];
-    if (historyList.length >= 6) historyList.length = 5;
+    const UpdateHistoryList = [...new Set(storeHistoryList)];
+    if (UpdateHistoryList.length >= 6) UpdateHistoryList.length = 5;
+
 
     try {
-      localStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(historyList));
-      store.dispatch(historySlice.actions.addHistory(historyList));
+      localStorage.setItem(
+        SEARCH_HISTORY_KEY,
+        JSON.stringify(UpdateHistoryList)
+      );
+      store.dispatch(historySlice.actions.addHistory(UpdateHistoryList));
     } catch (e) {
       throw new Error("LocalStorage를 사용할 수 없습니다.", e);
     }
