@@ -7,7 +7,8 @@ export const store = configureStore({
     history: historySlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(setLocalStorageMiddleware),
+    getDefaultMiddleware({ serializableCheck: false}).concat(setLocalStorageMiddleware),
+    // 직렬화 type문제 해결? 아직 모르는 부분 공부필요
 });
 
 

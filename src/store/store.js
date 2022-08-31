@@ -3,24 +3,30 @@ import axios from "axios";
 
 
 const SEARCH_HISTORY_KEY = "SEARCH_HISTORY";
-export const setLocalStorageMiddleware = (store) => (next) => (action) => {
-    if (action.type === "newsSlice/fetchNewsbyWords/fulfilled") {
-      const storeHistoryList = [...store.getState().history.history];
-      storeHistoryList.unshift(action.meta.arg.q);
-      const UpdateHistoryList = [...new Set(storeHistoryList)];
-      if (UpdateHistoryList.length >= 6) UpdateHistoryList.length = 5;
+export const setLocalStorageMiddleware = (store) => (next) => (action) =>
+
+{
+  console.log(action.type)
+    if (action.type === "newsSlice/axiosNewsbyWords/fulfilled") {    
+     const storeHistoryList = [...store.getState().history.history];  
+      storeHistoryList.unshift(action.meta.arg.query);
+      const updateHistoryList = [...new Set(storeHistoryList)];
+      if (updateHistoryList.length >= 6) updateHistoryList.length = 5;
       try {
         localStorage.setItem(
           SEARCH_HISTORY_KEY,
-          JSON.stringify(UpdateHistoryList)
+          JSON.stringify(updateHistoryList)
         );
-        store.dispatch(historySlice.actions.addHistory(UpdateHistoryList));
+        store.dispatch(historySlice.actions.addHistory(updateHistoryList));
+        store.dispatch(newsSlice.actions.addnews(action.payload.data.response));
       } catch (e) {
         throw new Error("LocalStorage를 사용할 수 없습니다.", e);
       }
-    }
+    }  
+
     return next(action);
   };
+
 
   export const axiosNewsbyWords = createAsyncThunk(
     "newsSlice/axiosNewsbyWords",
@@ -44,40 +50,30 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
     }
   );
 
-
-
   export const newsSlice = createSlice({
     name: "news",
     initialState: {
-      news: [],
+      newsdata: [],
       loading: false,
       error: "",
+      isCilp:[]
     },
     reducers: {
-        clip: ({ clippednews}, action) => {
-          clippednews.push({text:action.payload, id:Date.now()});      
-        },
-        unclip: ({ clippednews}, action) => {
-          clippednews=clippednews.filter((item) => item.id!==action.payload);
-        },
+      addnews: (state, action) => {
+        state.newsdata = action.payload;
       },
-    extraReducers: {
-      [axiosNewsbyWords.pending]: (state) => {
-        state.loading = true;
-        state.news = [];
-        state.error = "";
+      addcilp: (state, action) => {
+        state.isCilp.push(action.payload)
       },
-      [axiosNewsbyWords.fulfilled]: (state, action) => {
-        state.news = action.payload;
-        state.loading = false;
-        state.error = "";
+      deleteCilp: (state, action) => {
+        for(let i = 0; i < state.isCilp.length; i++) {
+          if(state.isCilp[i] === action.payload)  {
+            state.isCilp.splice(i, 1);
+            i--;
+          }
+        }
       },
-      [axiosNewsbyWords.rejected]: (state, action) => {
-        state.loading = false;
-        state.news = [];
-        state.error = action.payload;
       },
-    },
   });
 
   
@@ -85,8 +81,7 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
     let initialState = { history: [],clip:[],isClip:false };
     // console.log("history initialState");
     try {
-      initialState.history =
-        JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
+      initialState.history =JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
     } catch (e) {
       // error
       throw new Error("LocalStorage를 사용할 수 없습니다.", e);
@@ -98,17 +93,11 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) => {
   export const historySlice = createSlice({
     name: "history",
     initialState: initialHistoryList,
-    reducers: {
+    reducers: {   
       addHistory: (state, action) => {
         state.history = action.payload;
       },
-      addClip: (state, action) => {
-        state.clip = action.payload;
-        state.isClip=true
-      },
-      deleteClip: (state, action) => {
-        state.clip = 'none';
-        state.isClip=false;
-      },
     },
   });
+
+  export const { addcilp,deleteCilp } = newsSlice.actions;
