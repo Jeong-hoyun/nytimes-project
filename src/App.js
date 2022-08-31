@@ -4,6 +4,7 @@ import Index from './news/index';
 import Clip from './clip/clip';
 import Api from './api/api';
 import Stores from './store/store';
+import Demo from './news/demo';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/clip/" element={<Clip />} />
       <Route path="/api/" element={<Api />} />  
       <Route path="/store/" element={<Stores />} />
+      <Route path="/demo/" element={<Demo />} />
       <Route path="/*" element={<Index />} />   
     </Routes>
   </BrowserRouter>
