@@ -7,7 +7,9 @@ import {  deleteClip } from '../store/store';
 const ClipIndex = () => { 
     const dispatch=useDispatch()
     const isclipList = useSelector(({ history }) => history.isClip);   
-    const clipData = isclipList?.map(e=>e.web_url)       
+    const clipData = isclipList?.map(e=>e.web_url)    
+    /**   clipData는 전체 클립된 데이터를 파악하게 하는 변수이다 */
+    
     return (
         <>
         <Header/>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { API_KEY } from './apikeys'
+import { API_KEY } from '../apikeys.js'
 import { useDispatch } from 'react-redux';
 import { axiosNewsbyWords } from '../store/store';
 

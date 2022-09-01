@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { store } from './store';
 import ClipIndex from "./clip";
 
+/** 
+ redux Provider 설정과 라우터 설정을 동시에 작업  */
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render( 

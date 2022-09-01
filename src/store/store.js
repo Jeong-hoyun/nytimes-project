@@ -67,7 +67,7 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) =>
 
   
   const initialHistoryList = (() => {
-    let initialState = { history: [],isClip:[],isClip:false };
+    let initialState = { history: [],isClip:[] };
     // console.log("history initialState");
     try {
       initialState.history =JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
