@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily:{
+      // font: ["Lobster", "cursive"],
+      headerFont: ["UnifrakturMaguntia", "cursive"]
+    }
   },
   plugins: [],
   variants: {
