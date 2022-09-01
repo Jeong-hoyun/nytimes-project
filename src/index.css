@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Rye&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap");
+
 
 
 h1, h2, h3, h4, h5, h6 {
