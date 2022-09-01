@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
-
+const NEWS_CLIP_KEY="NEWS_CLIP";
 const SEARCH_HISTORY_KEY = "SEARCH_HISTORY";
 export const setLocalStorageMiddleware = (store) => (next) => (action) =>
 
@@ -55,33 +55,23 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) =>
     initialState: {
       newsdata: [],
       loading: false,
-      error: "",
-      isCilp:[]
+      error: ""   
     },
     reducers: {
       addnews: (state, action) => {
         state.newsdata = action.payload;
       },
-      addcilp: (state, action) => {
-        state.isCilp.push(action.payload)
-      },
-      deleteCilp: (state, action) => {
-        for(let i = 0; i < state.isCilp.length; i++) {
-          if(state.isCilp[i] === action.payload)  {
-            state.isCilp.splice(i, 1);
-            i--;
-          }
-        }
-      },
+   
       },
   });
 
   
   const initialHistoryList = (() => {
-    let initialState = { history: [],clip:[],isClip:false };
+    let initialState = { history: [],isCilp:[],isClip:false };
     // console.log("history initialState");
     try {
       initialState.history =JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
+      initialState.isCilp =JSON.parse(localStorage.getItem(NEWS_CLIP_KEY)) || [];
     } catch (e) {
       // error
       throw new Error("LocalStorage를 사용할 수 없습니다.", e);
@@ -97,7 +87,18 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) =>
       addHistory: (state, action) => {
         state.history = action.payload;
       },
+      addcilp: (state, action) => {      
+        state.isCilp.push(action.payload)
+        localStorage.setItem(
+          NEWS_CLIP_KEY,
+          JSON.stringify(state.isCilp)
+        ); 
+      },
+      deleteCilp: (state, action) => {     
+        state.isCilp= current(state.isCilp).filter(e=>e.web_url !== action.payload)        
+        localStorage.setItem( NEWS_CLIP_KEY, JSON.stringify(state.isCilp));
+      },
     },
   });
 
-  export const { addcilp,deleteCilp } = newsSlice.actions;
+  export const { addcilp,deleteCilp } = historySlice.actions;
