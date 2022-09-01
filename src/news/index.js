@@ -3,25 +3,20 @@ import useNewsSearch from './../feature/useNewsSearch';
 import Header from './../view/header';
 import Footer from './../view/footer';
 import { useSelector, useDispatch } from 'react-redux';
-import { addcilp,deleteCilp} from './../store/store';
+import { addClip,deleteClip} from './../store/store';
 export default function Index() {
     const [query, setQuery]= useState('')
     const [pageNumber, setPageNumber] = useState(1)  
-    const [timer, setTimer] = useState(null);
-
+    const [timer, setTimer] = useState(null);    
 
     const { news, hasMore, loading,error} = useNewsSearch(query, pageNumber)
     const historyList = useSelector(({ history }) => history.history);
-    const isCilpList = useSelector(({ history }) => history.isCilp);    
+    const isClipList = useSelector(({ history }) => history.isClip);    
 
-    const cilped = useSelector((state) => state.news.isCilp);  
-    const cilpData = isCilpList?.map(e=>e.web_url)
-      
+    const clipData = isClipList?.map(e=>e.web_url)     
     
     const dispatch= useDispatch()  
-    const observer = useRef()
-
-  
+    const observer = useRef()  
 
     const lastElementRef = useCallback(node => {
       if (loading) return
@@ -32,8 +27,7 @@ export default function Index() {
         }
       })
       if (node) observer.current.observe(node)
-    }, [loading, hasMore])
-  
+    }, [loading, hasMore])  
     const handleSearch = (e) => {
         if (timer) {
           clearTimeout(timer);
@@ -46,7 +40,6 @@ export default function Index() {
           }, 500)
         );
       }    
-
     return (
       <>
       <Header/>          
@@ -74,21 +67,20 @@ export default function Index() {
         bg-blue-700 rounded-lg 
         hover:bg-blue-800"
         onClick={()=>{
-          if(cilpData.indexOf(item.web_url)>=0){
-            dispatch(deleteCilp(item.web_url)) 
+          if(clipData.indexOf(item.web_url)>=0){
+            dispatch(deleteClip(item.web_url)) 
           }else{
-           dispatch(addcilp(
+           dispatch(addClip(
             {web_url:item.web_url,
             pub_date:item.pub_date.replace('T', ' ').substring(0, 19),
             main:item.headline.main, 
             id:item._id 
              }
              ))
-             console.log(cilped)
-        
+             
         }       
         }}>
-        {cilpData.indexOf(item.web_url)>=0?'uncilp':'cilp'}
+        {clipData.indexOf(item.web_url)>=0?'unClip':'Clip'}
          </span>
          <a href={item.web_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-3 py-1 mr-2 mb-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg">detail
          </a>         

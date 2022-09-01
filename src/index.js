@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Index />} />
-      <Route path="/cilp" element={<ClipIndex />} />
+      <Route path="/clip" element={<ClipIndex />} />
       <Route path="/*" element={<Index />} />   
     </Routes>
   </BrowserRouter>
