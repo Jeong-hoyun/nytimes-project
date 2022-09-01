@@ -67,11 +67,11 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) =>
 
   
   const initialHistoryList = (() => {
-    let initialState = { history: [],isCilp:[],isClip:false };
+    let initialState = { history: [],isClip:[],isClip:false };
     // console.log("history initialState");
     try {
       initialState.history =JSON.parse(localStorage.getItem(SEARCH_HISTORY_KEY)) || [];
-      initialState.isCilp =JSON.parse(localStorage.getItem(NEWS_CLIP_KEY)) || [];
+      initialState.isClip =JSON.parse(localStorage.getItem(NEWS_CLIP_KEY)) || [];
     } catch (e) {
       // error
       throw new Error("LocalStorage를 사용할 수 없습니다.", e);
@@ -87,18 +87,18 @@ export const setLocalStorageMiddleware = (store) => (next) => (action) =>
       addHistory: (state, action) => {
         state.history = action.payload;
       },
-      addcilp: (state, action) => {      
-        state.isCilp.push(action.payload)
+      addClip: (state, action) => {      
+        state.isClip.push(action.payload)
         localStorage.setItem(
           NEWS_CLIP_KEY,
-          JSON.stringify(state.isCilp)
+          JSON.stringify(state.isClip)
         ); 
       },
-      deleteCilp: (state, action) => {     
-        state.isCilp= current(state.isCilp).filter(e=>e.web_url !== action.payload)        
-        localStorage.setItem( NEWS_CLIP_KEY, JSON.stringify(state.isCilp));
+      deleteClip: (state, action) => {     
+        state.isClip= current(state.isClip).filter(e=>e.web_url !== action.payload)        
+        localStorage.setItem( NEWS_CLIP_KEY, JSON.stringify(state.isClip));
       },
     },
   });
 
-  export const { addcilp,deleteCilp } = historySlice.actions;
+  export const { addClip,deleteClip } = historySlice.actions;
