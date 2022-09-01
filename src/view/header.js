@@ -6,8 +6,8 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import MoveHome from "../routeBtn/MoveHome";
 import MoveClip from '../routeBtn/MoveClip';
 
-
-<FontAwesomeIcon icon={faBars} />
+// 이거 어떻게 쓰는거지 왜 안돼애애
+// import Hamburger from 'hamburger-react'
 
 export default function Header() {
   const [visible, setVisible] =  useState(false)
@@ -17,6 +17,7 @@ export default function Header() {
   }
 
 return (
+
   <header class="bg-gray-50 flex items-center ">
   <div class="px-4 py-8 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
     <div>
@@ -33,7 +34,7 @@ return (
       </FontAwesomeIcon>
     </button>
   </div>
-
+  
   <div class="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
       <div>
       {visible ? (
@@ -44,7 +45,7 @@ return (
       ): null }
     </div>
   </div>
-  
+
         </div>
         </div>
       </div>
@@ -56,11 +57,9 @@ return (
       </h1>
     </div>
     
-
-
 <div class="flex justify-center">
 
-  { <div class="mb-3 xl:w-96 pt-8">
+  <div class="mb-3 xl:w-96 pt-8">
     <input
       type="search"
       class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out
@@ -69,9 +68,9 @@ return (
       "
       placeholder="Type to search ..."
     />
-  </div> }
+  </div>
 
-</div>
+  </div>
   </div>
 </header>
 
