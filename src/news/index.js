@@ -45,10 +45,11 @@ export default function Index() {
       <Header/>          
       <section>
       <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
-      <div className="relative">   
-      <input onChange={handleSearch} placeholder='Search news...' className='block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'></input>        
-      </div>
-
+      <div>   
+      <input  type="search"  onChange={handleSearch} placeholder='Search news...' className='form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out
+      m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'></input>        
+      </div>      
+     
       <details className="open:bg-white open:ring-1 open:ring-black/5 open:shadow-lg p-6 rounded-lg" open>
       <summary className="text-sm leading-6 text-slate-900 dark:text-white font-semibold select-none">search list</summary>
        <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
