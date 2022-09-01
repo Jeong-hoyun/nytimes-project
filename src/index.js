@@ -1,15 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import { BrowserRouter,Route,Routes } from "react-router-dom";
+import Index from './news/index';
 import { Provider } from "react-redux";
-import { store } from "./store";
-// import Styled from "./view/nav";
+import { store } from './store';
+import ClipIndex from "./clip";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <Provider store={store}>
-    <App />
-    {/* <Styled/> */}
+root.render( 
+   <Provider store={store}>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Index />} />
+      <Route path="/cilp" element={<ClipIndex />} />
+      <Route path="/*" element={<Index />} />   
+    </Routes>
+  </BrowserRouter>
   </Provider>
+
 );
