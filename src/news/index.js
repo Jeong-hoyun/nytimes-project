@@ -8,14 +8,21 @@ export default function Index() {
     const [query, setQuery]= useState('')
     const [pageNumber, setPageNumber] = useState(1)  
     const [timer, setTimer] = useState(null);
+
+
     const { news, hasMore, loading,error} = useNewsSearch(query, pageNumber)
     const historyList = useSelector(({ history }) => history.history);
-    const newsdata = useSelector((state) => state.news.newsdata);
-    const cilpdata = useSelector((state) => state.news.isCilp);
-    const docs=newsdata.docs  
-    const dispatch= useDispatch()
-  
+    const isCilpList = useSelector(({ history }) => history.isCilp);    
+
+    const cilped = useSelector((state) => state.news.isCilp);  
+    const cilpData = isCilpList?.map(e=>e.web_url)
+      
+    
+    const dispatch= useDispatch()  
     const observer = useRef()
+
+  
+
     const lastElementRef = useCallback(node => {
       if (loading) return
       if (observer.current) observer.current.disconnect()
@@ -56,7 +63,7 @@ export default function Index() {
         </div>
      </details>
     
-        {docs&&docs.map((item,i) => (
+        {news&&news.map((item,i) => (
           <div key={item._id}  className="bg-white shadow-lg p-6 rounded-lg ring-1">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900" >{item.headline.main}</h5>        
           <p className='mb-3 font-normal text-gray-700'>{item.pub_date.replace('T', ' ').substring(0, 19)}</p>           
@@ -67,14 +74,21 @@ export default function Index() {
         bg-blue-700 rounded-lg 
         hover:bg-blue-800"
         onClick={()=>{
-          if(cilpdata.indexOf(item._id)>=0){
-            dispatch(deleteCilp(item._id)) 
+          if(cilpData.indexOf(item.web_url)>=0){
+            dispatch(deleteCilp(item.web_url)) 
           }else{
-           dispatch(addcilp(item._id))
-          }  
-          console.log(cilpdata)       
+           dispatch(addcilp(
+            {web_url:item.web_url,
+            pub_date:item.pub_date.replace('T', ' ').substring(0, 19),
+            main:item.headline.main, 
+            id:item._id 
+             }
+             ))
+             console.log(cilped)
+        
+        }       
         }}>
-        {cilpdata.indexOf(item._id)>0?'uncilp':'cilp'}
+        {cilpData.indexOf(item.web_url)>=0?'uncilp':'cilp'}
          </span>
          <a href={item.web_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-3 py-1 mr-2 mb-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg">detail
          </a>         
