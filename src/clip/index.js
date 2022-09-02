@@ -13,7 +13,7 @@ const ClipIndex = () => {
         <Header/>
         <section>
         {isclipList&&isclipList.map((item) => (
-            <div key={item.id}  className="bg-white shadow-lg p-6 rounded-lg ring-1">
+            <div key={item.id}  className="bg-white shadow-lg p-6 rounded-lg ring-1 m-3">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900" >{item.main}</h5>        
             <p className='mb-3 font-normal text-gray-700'>{item.pub_date}</p>           
           <span className=" inline-flex items-center    px-3 py-1 mr-2 mb-2 text-sm       font-medium text-center text-white 
