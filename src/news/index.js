@@ -103,7 +103,7 @@ const PageContainer = styled.div`
   min-height: 100vh;
 `
 const Section = styled.div`
-padding-bottom: 100px
+padding-bottom: 50px
 `
 
 const Relative = styled.div.attrs({
@@ -128,9 +128,9 @@ const Spinner = styled.div`
   width: 50px;
   height: 50px;
   margin: 0 auto;
-  border: 10px solid gray;
+  border: 6px solid gray;
   border-radius: 50%;
-  border-top: 10px solid black;
+  border-top: 6px solid black;
   animation: spin 2s linear infinite;
   
   @keyframes spin {
