@@ -1,26 +1,35 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
-const Footer = () => {
-    return (
-        <footer className="p-4 bg-white rounded-lg shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
-        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com/" className="hover:underline">Flowbite™</a>. All Rights Reserved.
-        </span>
-        <ul className="flex flex-wrap items-center mt-3 text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-            <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6 ">About</a>
-            </li>
-            <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
-            </li>
-            <li>
-                <a href="#" className="mr-4 hover:underline md:mr-6">Licensing</a>
-            </li>
-            <li>
-                <a href="#" className="hover:underline">Contact</a>
-            </li>
-        </ul>
-    </footer>
-    );
+const Div = styled.div`
+  border-radius: 10px;
+  background-color: #262d3d;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+`;
+
+const Copy = styled.div`
+  font-size: 1em;
+  margin-left: 1em;
+  color: #97a2b5;
+`;
+
+function Footer() {
+  return (
+    <Div>
+      <Copy>
+        Copyright 2022.&nbsp;
+        <a href="https://github.com/Handmade-project" target="_blank">
+          <FontAwesomeIcon icon={faGithub} /> 3조 미니 프로젝트
+        </a>{" "}
+        All rights reserved.
+      </Copy>
+    </Div>
+  );
 }
 
 export default Footer;
