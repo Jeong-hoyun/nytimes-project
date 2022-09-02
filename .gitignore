@@ -4,6 +4,7 @@
 .pnp.js
 
 /coverage
+/src/apikeys.js
 
 /build
 .env

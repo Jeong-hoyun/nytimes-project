@@ -58,7 +58,7 @@ export default function Index() {
         </div>
      </Details>
      </Relative>
-        {news&&news.map((item,i) => (
+        {news&&news.map((item) => (
           <div key={item._id}  className="bg-white shadow-lg p-6 rounded-lg ring-1 m-3">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900" >{item.headline.main}</h5>        
           <p className='mb-3 font-normal text-gray-700'>{item.pub_date.replace('T', ' ').substring(0, 19)}</p>           
@@ -78,8 +78,7 @@ export default function Index() {
             main:item.headline.main, 
             id:item._id 
              }
-             ))
-             
+             ))            
         }       
         }}>
         {clipData.indexOf(item.web_url)>=0?'unClip':'Clip'}
