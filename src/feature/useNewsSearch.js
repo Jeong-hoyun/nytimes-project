@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { API_KEY } from '../apikeys';
+import { API_KEY } from '../apikey';
 import { axiosNewsbyWords } from '../store/store';
 
 export default function useNewsSearch(query, pageNumber) {
