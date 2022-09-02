@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { BrowserRouter,Route,Routes } from "react-router-dom";
+import { BrowserRouter,Route,Routes,Navigate } from "react-router-dom";
 import Index from './news/index';
 import { Provider } from "react-redux";
 import { store } from './store';
@@ -14,7 +14,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Index />} />
       <Route path="/clip" element={<ClipIndex />} />
-      <Route path="/*" element={<Index />} />   
+      <Route path="/*" element={<Navigate replace to="/" />} />
     </Routes>
   </BrowserRouter>
   </Provider>
