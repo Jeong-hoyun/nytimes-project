@@ -88,7 +88,7 @@ export default function Index() {
           </div>
         ))}
       </section>
-      <div>{loading && 'Loading...'}</div>
+      <div>{loading && <Spinner/>}</div>
       <div>{error && 'Error...'}</div>
       <div ref={lastElementRef}></div>
       <Footer/>
@@ -113,4 +113,23 @@ const Details = styled.details.attrs({
   className: 'box-keyword open:bg-white open:ring-1 open:ring-black/5 open:shadow-lg p-6 rounded-lg'
 })`
   display: none;
+`
+
+const Spinner = styled.div`
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  border: 10px solid gray;
+  border-radius: 50%;
+  border-top: 10px solid black;
+  animation: spin 2s linear infinite;
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `
