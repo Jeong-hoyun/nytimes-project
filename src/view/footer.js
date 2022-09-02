@@ -10,6 +10,8 @@ const Div = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
+  position : absolute;
+  bottom: 0;
 `;
 
 const Copy = styled.div`

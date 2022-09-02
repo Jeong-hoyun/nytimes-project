@@ -45,8 +45,9 @@ export default function Index() {
       }    
     return (
       <>
+      <PageContainer>
       <Header/>          
-      <section>
+      <Section>
       <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
       <Relative>   
       <input onChange={handleSearch} placeholder="Search news.."/>       
@@ -87,15 +88,24 @@ export default function Index() {
          </a>         
           </div>
         ))}
-      </section>
+      </Section>
       <div>{loading && <Spinner/>}</div>
       <div>{error && 'Error...'}</div>
       <div ref={lastElementRef}></div>
       <Footer/>
+      </PageContainer>
     </>
      
     )
 }
+
+const PageContainer = styled.div`
+  position: relative;
+  min-height: 100vh;
+`
+const Section = styled.div`
+padding-bottom: 100px
+`
 
 const Relative = styled.div.attrs({
   className: 'relative'
